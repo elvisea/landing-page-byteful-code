@@ -187,6 +187,13 @@ export function ContactForm() {
       })
 
       if (!response.ok) {
+        const data = await response.json()
+
+        if (data.error === 'RATE_LIMITED') {
+          alert('Muitas tentativas. Por favor, aguarde um momento antes de tentar novamente.')
+          return
+        }
+
         throw new Error('Erro ao enviar mensagem')
       }
 
