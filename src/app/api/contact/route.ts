@@ -306,7 +306,7 @@ const getClientEmailTemplate = (data: FormData) => `
           <div class="contact-info">
             <h3>Precisa Falar Conosco?</h3>
             <div class="contact-method">
-              📧 Email: ${process.env.EMAIL_CONTACT}
+              📧  Email: ${process.env.EMAIL_CONTACT}
             </div>
             <div class="contact-method">
               📱 WhatsApp: ${process.env.PHONE_NUMBER}
@@ -329,17 +329,19 @@ export async function POST(request: Request) {
   try {
     const body: FormData = await request.json()
 
+    const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech"
+
     // Email para a empresa
     const companyMailOptions = {
-      from: process.env.SMTP_USER,
-      to: 'contato@bytefulcode.tech',
+      from: EMAIL_CONTACT,
+      to: EMAIL_CONTACT,
       subject: `Nova Solicitação de Projeto - ${body.name}`,
       html: getCompanyEmailTemplate(body),
     }
 
     // Email para o cliente
     const clientMailOptions = {
-      from: process.env.SMTP_USER,
+      from: EMAIL_CONTACT,
       to: body.email,
       subject: 'Recebemos sua solicitação - BytefulCode',
       html: getClientEmailTemplate(body),
