@@ -125,7 +125,7 @@ export function Contact() {
 
           {/* Formulário CTA */}
           <div className="mt-16 bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl shadow-xl overflow-hidden">
-            <div className="p-10 text-center">
+            <div className="p-8 sm:p-10 text-center">
               <h3 className={`${fontSize["2xl"]} ${fontWeight.bold} text-white mb-4`}>
                 Envie uma mensagem
               </h3>
@@ -135,10 +135,10 @@ export function Contact() {
               <Link href="/contato" passHref>
                 <Button
                   size="lg"
-                  className="bg-white text-blue-600 hover:bg-blue-50 group px-8"
+                  className="bg-white text-blue-600 hover:bg-blue-50 group w-full sm:w-auto px-6 sm:px-8"
                 >
-                  Preencher Formulário Completo
-                  <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  <span className="truncate">Preencher Formulário Completo</span>
+                  <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
             </div>
