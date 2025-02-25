@@ -63,6 +63,9 @@ const formSchema = z.object({
 })
 
 export function Contact() {
+  const PHONE_NUMBER = process.env.PHONE_NUMBER || "(41) 99219-0528";
+  const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
+
   return (
     <section id="contact" className={sectionStyles.gradient}>
       <div className="container mx-auto px-4">
@@ -88,10 +91,10 @@ export function Contact() {
               <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>Email</h3>
               <p className={`${textColor.secondary} mb-4`}>Envie-nos um email a qualquer momento</p>
               <a
-                href="mailto:contato@bytefulcode.com.br"
+                href={`mailto:${EMAIL_CONTACT}`}
                 className={`${textColor.accent} ${fontWeight.medium} hover:underline`}
               >
-                contato@bytefulcode.com.br
+                {EMAIL_CONTACT}
               </a>
             </div>
 
@@ -107,7 +110,7 @@ export function Contact() {
                 rel="noopener noreferrer"
                 className={`${textColor.accent} ${fontWeight.medium} hover:underline`}
               >
-                (11) 99999-9999
+                {PHONE_NUMBER}
               </a>
             </div>
 
@@ -172,14 +175,28 @@ export function ContactForm() {
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    setIsSubmitting(true)
+    try {
+      setIsSubmitting(true)
 
-    // Simulando envio para API
-    await new Promise(resolve => setTimeout(resolve, 1500))
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(values),
+      })
 
-    console.log(values)
-    setIsSubmitting(false)
-    setIsSubmitted(true)
+      if (!response.ok) {
+        throw new Error('Erro ao enviar mensagem')
+      }
+
+      setIsSubmitted(true)
+    } catch (error) {
+      console.error('Erro ao enviar mensagem:', error)
+      alert('Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.')
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   if (isSubmitted) {

@@ -65,6 +65,9 @@ export interface ProjectTypeOption {
   label: string;
 }
 
+const PHONE_NUMBER = process.env.PHONE_NUMBER || "(41) 99219-0528";
+const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
+
 export const content = {
   header: {
     logo: "BytefulCode",
@@ -435,8 +438,8 @@ export const content = {
     },
     contact: {
       title: "Contato",
-      email: "contato@bytefulcode.tech",
-      phone: "(11) 99999-9999",
+      email: EMAIL_CONTACT,
+      phone: PHONE_NUMBER,
       address: "Av. Paulista, 1000, São Paulo - SP"
     },
     social: {

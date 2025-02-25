@@ -2,6 +2,10 @@ import Link from "next/link"
 import { textColor, bgColor } from "../styles/theme"
 
 export function Footer() {
+
+  const PHONE_NUMBER = process.env.PHONE_NUMBER || "(41) 99219-0528";
+  const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
+
   return (
     <footer className={`py-12 ${bgColor.primary} border-t border-gray-200 dark:border-gray-800`}>
       <div className="container mx-auto px-4">
@@ -59,10 +63,10 @@ export function Footer() {
             <h4 className={`text-lg font-semibold mb-4 ${textColor.primary}`}>Contato</h4>
             <ul className="space-y-2">
               <li className={textColor.secondary}>
-                contato@bytefullcode.com
+                {EMAIL_CONTACT}
               </li>
               <li className={textColor.secondary}>
-                +55 (11) 99999-9999
+                {PHONE_NUMBER}
               </li>
               <li>
                 <Link href="/contato" className={`${textColor.accent} font-medium`}>
