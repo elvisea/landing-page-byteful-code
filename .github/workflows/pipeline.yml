@@ -146,35 +146,20 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
 
-      - name: Transfer Docker Compose, Dockerfile e .env
-        run: |
-          # Gere o arquivo .env para o servidor
-          echo "REGISTRY=${{ env.REGISTRY }}" > .env
-          echo "IMAGE_NAME=${{ env.IMAGE_NAME }}" >> .env
-          echo "CONTAINER_NAME_APP=${{ env.CONTAINER_NAME_APP }}" >> .env
-          echo "NODE_ENV=production" >> .env
-          # Email configuration
-          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> .env
-          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
-          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> .env
-          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> .env
-          echo "EMAIL_CONTACT=${{ secrets.EMAIL_CONTACT }}" >> .env
-          echo "PHONE_NUMBER=${{ secrets.PHONE_NUMBER }}" >> .env
-          
-          # Transfira os arquivos necessários para o servidor
-          scp -i ~/.ssh/deploy_key -P ${{ secrets.REMOTE_PORT }} docker-compose.yml Dockerfile .env ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
-
       - name: Deploy to Server via SSH
         run: |
           ssh -i ~/.ssh/deploy_key -p ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "\
             cd ${{ secrets.REMOTE_TARGET }} && \
             docker login ${{ env.REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} && \
             # Pull da nova imagem em background
-            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest & \
-            # Aguarda o pull terminar
-            wait && \
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest && \
+            # Verifica se o arquivo docker-compose.yml existe
+            if [ ! -f docker-compose.yml ]; then
+              echo 'Error: docker-compose.yml not found'
+              exit 1
+            fi && \
             # Deploy com zero downtime
-            docker compose up -d --force-recreate --no-deps bytefulcode && \
+            docker compose -f docker-compose.yml up -d --force-recreate --no-deps bytefulcode && \
             # Limpa imagens antigas
             docker image prune -f && \
             echo 'Frontend deployed successfully'"
@@ -182,3 +167,27 @@ jobs:
       - name: Cleanup
         if: always()
         run: rm -f ~/.ssh/deploy_key
+
+      # Garante que o arquivo .env está correto
+      - name: Transfer Docker Compose, Dockerfile e .env
+        run: |
+          # Gere o arquivo .env para o servidor
+          cat > .env << EOL
+          REGISTRY=${{ env.REGISTRY }}
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
+          CONTAINER_NAME_APP=${{ env.CONTAINER_NAME_APP }}
+          NODE_ENV=production
+          # Email configuration
+          SMTP_HOST=${{ secrets.SMTP_HOST }}
+          SMTP_PORT=${{ secrets.SMTP_PORT }}
+          SMTP_USER=${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          EMAIL_CONTACT=${{ secrets.EMAIL_CONTACT }}
+          PHONE_NUMBER=${{ secrets.PHONE_NUMBER }}
+          EOL
+          
+          # Transfira os arquivos necessários para o servidor
+          scp -i ~/.ssh/deploy_key -P ${{ secrets.REMOTE_PORT }} \
+            docker-compose.yml \
+            .env \
+            ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}/
