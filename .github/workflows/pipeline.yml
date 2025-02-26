@@ -150,30 +150,51 @@ jobs:
       - name: Transfer Docker Compose and .env
         run: |
           # Gere o arquivo .env para o servidor
-          echo "REGISTRY=${{ env.REGISTRY }}" > .env
-          echo "IMAGE_NAME=${{ env.IMAGE_NAME }}" >> .env
-          echo "CONTAINER_NAME_APP=${{ env.CONTAINER_NAME_APP }}" >> .env
-          echo "NODE_ENV=production" >> .env
+          cat > .env << EOL
+          REGISTRY=${{ env.REGISTRY }}
+          IMAGE_NAME=${{ env.IMAGE_NAME }}
+          CONTAINER_NAME_APP=${{ env.CONTAINER_NAME_APP }}
+          NODE_ENV=production
           # Email configuration
-          echo "SMTP_HOST=${{ secrets.SMTP_HOST }}" >> .env
-          echo "SMTP_PORT=${{ secrets.SMTP_PORT }}" >> .env
-          echo "SMTP_USER=${{ secrets.SMTP_USER }}" >> .env
-          echo "SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}" >> .env
-          echo "EMAIL_CONTACT=${{ secrets.EMAIL_CONTACT }}" >> .env
-          echo "PHONE_NUMBER=${{ secrets.PHONE_NUMBER }}" >> .env
+          SMTP_HOST=${{ secrets.SMTP_HOST }}
+          SMTP_PORT=${{ secrets.SMTP_PORT }}
+          SMTP_USER=${{ secrets.SMTP_USER }}
+          SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }}
+          EMAIL_CONTACT=${{ secrets.EMAIL_CONTACT }}
+          PHONE_NUMBER=${{ secrets.PHONE_NUMBER }}
+          EOL
+          
+          # Verificar conteúdo dos arquivos
+          echo "Content of .env:"
+          cat .env
+          echo "Content of docker-compose.yml:"
+          cat docker-compose.yml
           
           # Transfira os arquivos necessários para o servidor
-          scp -i ~/.ssh/deploy_key -P ${{ secrets.REMOTE_PORT }} docker-compose.yml Dockerfile .env ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}
+          scp -i ~/.ssh/deploy_key -P ${{ secrets.REMOTE_PORT }} \
+            docker-compose.yml .env \
+            ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }}:${{ secrets.REMOTE_TARGET }}/
 
       # Depois fazemos o deploy
       - name: Deploy to Server via SSH
         run: |
           ssh -i ~/.ssh/deploy_key -p ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "\
             cd ${{ secrets.REMOTE_TARGET }} && \
+            echo 'Current directory:' && pwd && \
+            echo 'Listing files:' && ls -la && \
             docker login ${{ env.REGISTRY }} -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }} && \
-            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest & \
-            wait && \
-            docker compose up -d --force-recreate --no-deps bytefulcode && \
+            docker pull ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest && \
+            docker compose down && \
+            REGISTRY=${{ env.REGISTRY }} \
+            IMAGE_NAME=${{ env.IMAGE_NAME }} \
+            CONTAINER_NAME_APP=${{ env.CONTAINER_NAME_APP }} \
+            SMTP_HOST=${{ secrets.SMTP_HOST }} \
+            SMTP_PORT=${{ secrets.SMTP_PORT }} \
+            SMTP_USER=${{ secrets.SMTP_USER }} \
+            SMTP_PASSWORD=${{ secrets.SMTP_PASSWORD }} \
+            EMAIL_CONTACT=${{ secrets.EMAIL_CONTACT }} \
+            PHONE_NUMBER=${{ secrets.PHONE_NUMBER }} \
+            docker compose up -d && \
             docker image prune -f && \
             echo 'Frontend deployed successfully'"
 
