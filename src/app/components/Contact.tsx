@@ -63,7 +63,7 @@ const formSchema = z.object({
 })
 
 export function Contact() {
-  const PHONE_NUMBER = process.env.PHONE_NUMBER || "(41) 99219-0528";
+  const PHONE_NUMBER = '5541992190528';
   const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
 
   return (
@@ -105,12 +105,12 @@ export function Contact() {
               <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>WhatsApp</h3>
               <p className={`${textColor.secondary} mb-4`}>Estamos disponíveis para chat</p>
               <a
-                href="https://wa.me/5541997799375"
+                href={`https://wa.me/${PHONE_NUMBER}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className={`${textColor.accent} ${fontWeight.medium} hover:underline`}
               >
-                {PHONE_NUMBER}
+                (41) 99219-0528
               </a>
             </div>
 
