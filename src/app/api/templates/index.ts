@@ -273,7 +273,7 @@ const getClientEmailTemplate = (data: FormData) => `
               📱 WhatsApp: ${process.env.PHONE_NUMBER}
             </div>
             <div class="contact-method">
-              📍 São Paulo, SP - Brasil
+              📍 Curitiba, PR - Brasil
             </div>
           </div>
         </div>

@@ -121,7 +121,7 @@ export function Contact() {
               <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>Localização</h3>
               <p className={`${textColor.secondary} mb-4`}>Atendemos em todo o Brasil</p>
               <span className={`${textColor.accent} ${fontWeight.medium}`}>
-                São Paulo, SP - Brasil
+                Curitiba, PR - Brasil
               </span>
             </div>
           </div>
