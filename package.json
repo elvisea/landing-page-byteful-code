@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev -p 3002",
+    "dev:docker": "docker compose -f docker-compose.dev.yml up --build",
     "build": "next build",
+    "build:docker": "docker compose -f docker-compose.yml up --build",
     "start": "next start -p 3002",
     "lint": "next lint"
   },
@@ -45,5 +47,6 @@
     "postcss": "^8",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
-  }
+  },
+  "packageManager": "pnpm@10.5.0+sha512.11106a5916c7406fe4b8cb8e3067974b8728f47308a4f5ac5e850304afa6f57e2847d7950dfe78877d8d36bfb401d381c4215db3a4c3547ffa63c14333a6fa51"
 }

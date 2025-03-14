@@ -4,8 +4,6 @@ const nextConfig = {
   experimental: {
     optimizeCss: false,
   },
-  // Reduz o tamanho do bundle
-  swcMinify: true,
   // Otimiza imagens
   images: {
     unoptimized: true, // Para build mais rápido
