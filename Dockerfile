@@ -11,7 +11,7 @@ RUN corepack enable && corepack prepare pnpm@10.5.0 --activate
 # Copia os arquivos de configuração
 COPY package.json ./
 COPY pnpm-lock.yaml* ./
-COPY next.config.js ./
+COPY next.config.ts ./
 
 # Instala as dependências
 RUN pnpm install
