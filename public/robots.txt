@@ -1,5 +1,9 @@
 User-agent: *
 Allow: /
+Disallow: /api/
 
 # Sitemap
-Sitemap: https://landing.bytefulcode.tech/sitemap.xml 
+Sitemap: https://landing.bytefulcode.tech/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 10 
