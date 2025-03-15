@@ -11,7 +11,14 @@ export function Reviews() {
   const { title, subtitle, items } = content.testimonials
 
   return (
-    <section id="testimonials" className={`min-h-screen flex items-center py-24 ${bgColor.secondary}`}>
+    <section
+      aria-label="Depoimentos"
+      role="region"
+      itemScope
+      itemType="https://schema.org/Review"
+      id="testimonials"
+      className={`min-h-screen flex items-center py-24 ${bgColor.secondary}`}
+    >
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>

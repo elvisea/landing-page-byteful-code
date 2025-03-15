@@ -13,7 +13,12 @@ export function Process() {
   const { title, subtitle, steps } = content.process
 
   return (
-    <section id="process" className={`min-h-screen flex items-center py-24 ${bgColor.primary}`}>
+    <section
+      aria-label="Nosso Processo"
+      role="region"
+      id="process"
+      className={`min-h-screen flex items-center py-24 ${bgColor.primary}`}
+    >
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
@@ -55,6 +60,6 @@ export function Process() {
           </p>
         </div>
       </div>
-    </section>
+    </ section>
   )
 } 

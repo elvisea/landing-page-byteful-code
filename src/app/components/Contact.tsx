@@ -67,7 +67,14 @@ export function Contact() {
   const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
 
   return (
-    <section id="contact" className={sectionStyles.gradient}>
+    <section
+      aria-label="Contato"
+      role="region"
+      itemScope
+      itemType="https://schema.org/ContactPage"
+      id="contact"
+      className={sectionStyles.gradient}
+    >
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
@@ -220,7 +227,10 @@ export function ContactForm() {
             Obrigado pelo seu interesse! Recebemos sua solicitação e entraremos em contato em breve para discutir seu projeto.
           </p>
           <Link href="/" passHref>
-            <Button className={buttonStyles.primary}>
+            <Button
+              variant="default"
+              className="bg-blue-600 text-white"
+            >
               Voltar para a Página Inicial
             </Button>
           </Link>

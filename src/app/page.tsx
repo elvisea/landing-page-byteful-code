@@ -19,7 +19,6 @@ export default function Home() {
         <FAQ />
         <Contact />
       </main>
-
       <WhatsAppButton />
     </>
   )

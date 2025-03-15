@@ -19,7 +19,14 @@ export function FAQ() {
   const { title, subtitle, items } = content.faq
 
   return (
-    <section id="faq" className={sectionStyles.primary}>
+    <section
+      aria-label="Perguntas Frequentes"
+      role="region"
+      itemScope
+      itemType="https://schema.org/FAQPage"
+      id="faq"
+      className={sectionStyles.primary}
+    >
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>

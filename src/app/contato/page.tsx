@@ -16,7 +16,6 @@ export default function ContactPage() {
           <div className="mb-8">
             <Link href="/" passHref>
               <Button
-                variant="outline"
                 className={`${buttonStyles.secondary} group flex items-center`}
               >
                 <ArrowLeft className="mr-2 h-4 w-4 transition-transform group-hover:-translate-x-1" />

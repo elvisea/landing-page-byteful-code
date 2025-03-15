@@ -13,7 +13,14 @@ export function Services() {
   const { title, subtitle, items } = content.services
 
   return (
-    <section id="services" className={`min-h-screen flex items-center py-24 ${bgColor.secondary}`}>
+    <section
+      aria-label="Nossos Serviços"
+      role="region"
+      id="services"
+      itemScope
+      itemType="https://schema.org/Service"
+      className={`min-h-screen flex items-center py-24 ${bgColor.secondary}`}
+    >
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>

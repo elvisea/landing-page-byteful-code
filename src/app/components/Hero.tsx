@@ -12,7 +12,11 @@ export function Hero() {
   const { title, subtitle, buttonText } = content.hero
 
   return (
-    <section className="relative h-screen flex items-center bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden">
+    <section
+      aria-label="Introdução"
+      role="banner"
+      className="hero-section relative h-screen flex items-center bg-gradient-to-r from-gray-50 to-white dark:from-gray-900 dark:to-gray-800 overflow-hidden"
+    >
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-grid-slate-100 dark:bg-grid-white/[0.05] bg-[size:60px_60px]" />
 
