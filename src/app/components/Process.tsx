@@ -1,3 +1,7 @@
+'use client'
+
+import { useTranslation } from "react-i18next"
+
 import {
   Card,
   CardContent,
@@ -6,11 +10,13 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { content } from "../content/page-content"
+import { ProcessStep } from "../content/page-content"
 import { sectionHeader, textColor, bgColor, cardStyles } from "../styles/theme"
 
 export function Process() {
-  const { title, subtitle, steps } = content.process
+
+  const { t } = useTranslation()
+  const steps = t("process.steps", { returnObjects: true }) as ProcessStep[]
 
   return (
     <section
@@ -22,13 +28,13 @@ export function Process() {
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
-            Processo
+            {t("process.badge")}
           </div>
           <h2 className={sectionHeader.title}>
-            {title}
+            {t("process.title")}
           </h2>
           <p className={sectionHeader.subtitle}>
-            {subtitle}
+            {t("process.subtitle")}
           </p>
         </div>
 
@@ -56,7 +62,7 @@ export function Process() {
         {/* Mensagem de processo contínuo */}
         <div className="text-center mt-8 p-4 bg-blue-50 dark:bg-blue-900/20 rounded-lg border border-blue-100 dark:border-blue-800 max-w-3xl mx-auto">
           <p className={textColor.accent}>
-            Processo contínuo de feedback e iteração em todas as etapas
+            {t("process.footer")}
           </p>
         </div>
       </div>

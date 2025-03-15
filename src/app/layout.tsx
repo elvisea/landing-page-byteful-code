@@ -1,12 +1,20 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 
-import { Header } from './components/Header'
+import type { Metadata, Viewport } from "next";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "next-themes";
+
+import I18nProvider from '@/i18n/I18nProvider'
 import { websiteSchema, organizationSchema } from '@/lib/schema'
+import { Header } from './components/Header'
 
 const inter = Inter({ subsets: ["latin"] });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://landing.bytefulcode.tech'),
@@ -73,6 +81,9 @@ export const metadata: Metadata = {
   verification: {
     google: "a305d1a55df1ae60",
   },
+  other: {
+    'priority-hints': "1",
+  }
 };
 
 export default function RootLayout({
@@ -91,15 +102,17 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="system"
-          enableSystem
-          disableTransitionOnChange
-        >
-          <Header />
-          {children}
-        </ThemeProvider>
+        <I18nProvider>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
+            <Header />
+            {children}
+          </ThemeProvider>
+        </I18nProvider>
       </body>
     </html>
   );

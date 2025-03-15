@@ -2,14 +2,14 @@
 
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
+import { useTranslation } from 'react-i18next'
 
 import { Button } from "@/components/ui/button"
 
-import { content } from "../content/page-content"
 import { textColor, bgColor, buttonStyles } from "../styles/theme"
 
 export function Hero() {
-  const { title, subtitle, buttonText } = content.hero
+  const { t } = useTranslation()
 
   return (
     <section
@@ -24,13 +24,13 @@ export function Hero() {
         <div className="max-w-4xl mx-auto">
           <div className="text-center">
             <div className={`inline-block mb-3 px-4 py-1 rounded-full ${bgColor.accentLight} ${textColor.accent} text-sm font-medium`}>
-              Desenvolvimento Web & Mobile
+              {t('hero.badge')}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 py-2">
-              {title}
+              {t('hero.title')}
             </h1>
             <p className={`text-xl md:text-2xl mb-10 ${textColor.secondary} max-w-3xl mx-auto`}>
-              {subtitle}
+              {t('hero.subtitle')}
             </p>
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -39,7 +39,7 @@ export function Hero() {
                   size="lg"
                   className={`${buttonStyles.primary} px-8 group`}
                 >
-                  {buttonText}
+                  {t('hero.cta')}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
@@ -49,7 +49,7 @@ export function Hero() {
                   variant="outline"
                   className="border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 px-8"
                 >
-                  Conheça Nossos Serviços
+                  {t('hero.services')}
                 </Button>
               </Link>
             </div>

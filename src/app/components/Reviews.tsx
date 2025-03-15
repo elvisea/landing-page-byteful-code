@@ -1,14 +1,18 @@
 'use client'
 
+import { useTranslation } from "react-i18next"
+
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Card, CardContent, CardFooter } from "@/components/ui/card"
 
-import { content } from "../content/page-content"
 import { TestimonialItem } from "../content/page-content"
 import { sectionHeader, textColor, bgColor, cardStyles } from "../styles/theme"
 
 export function Reviews() {
-  const { title, subtitle, items } = content.testimonials
+
+  const { t } = useTranslation()
+
+  const items = t("testimonials.items", { returnObjects: true }) as TestimonialItem[]
 
   return (
     <section
@@ -22,13 +26,13 @@ export function Reviews() {
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
-            Depoimentos
+            {t("testimonials.badge")}
           </div>
           <h2 className={sectionHeader.title}>
-            {title}
+            {t("testimonials.title")}
           </h2>
           <p className={sectionHeader.subtitle}>
-            {subtitle}
+            {t("testimonials.subtitle")}
           </p>
         </div>
 

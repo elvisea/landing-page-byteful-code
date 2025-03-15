@@ -3,6 +3,8 @@
 import { useState } from "react"
 import Link from "next/link"
 
+import { useTranslation } from "react-i18next"
+
 import { Check, Loader2, ArrowRight, Mail, Phone, MapPin } from "lucide-react"
 
 import * as z from "zod"
@@ -44,27 +46,34 @@ import {
   buttonStyles
 } from "../styles/theme"
 
+import { t as tI18n } from "i18next"
+
+
 const formSchema = z.object({
-  name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres" }),
-  email: z.string().email({ message: "Email inválido" }),
-  phone: z.string().min(10, { message: "Telefone inválido" }).optional(),
+  name: z.string().min(2, { message: tI18n("validation.name.min") }),
+  email: z.string().email({ message: tI18n("validation.email.email") }),
+  phone: z.string().min(10, { message: tI18n("validation.phone.min") }).optional(),
   company: z.string().optional(),
   projectType: z.string(),
   budget: z.string(),
   timeline: z.string(),
-  description: z.string().min(10, { message: "Por favor, forneça mais detalhes sobre seu projeto" }),
+  description: z.string().min(10, { message: tI18n("validation.description.min") }),
   contactPreference: z.string(),
   services: z.array(z.string()).refine((value) => value.length > 0, {
-    message: "Selecione pelo menos um serviço",
+    message: tI18n("validation.services.required"),
   }),
   termsAccepted: z.boolean().refine((val) => val === true, {
-    message: "Você deve aceitar os termos e condições",
+    message: tI18n("validation.termsAccepted.required"),
   }),
 })
 
 export function Contact() {
   const PHONE_NUMBER = '5541992190528';
   const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
+
+  const { t } = useTranslation()
+
+  const cards = t("contact.cards", { returnObjects: true }) as { title: string, subtitle: string, icon: string }[]
 
   return (
     <section
@@ -78,13 +87,13 @@ export function Contact() {
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
-            Contato
+            {t("contact.badge")}
           </div>
           <h2 className={sectionHeader.title}>
-            Vamos Transformar Sua Ideia em Realidade
+            {t("contact.title")}
           </h2>
           <p className={`${sectionHeader.subtitle} mb-12`}>
-            Estamos prontos para entender suas necessidades e criar soluções personalizadas que impulsionem seu negócio.
+            {t("contact.subtitle")}
           </p>
         </div>
 
@@ -95,8 +104,8 @@ export function Contact() {
               <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
                 <Mail className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>Email</h3>
-              <p className={`${textColor.secondary} mb-4`}>Envie-nos um email a qualquer momento</p>
+              <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>{cards[0].title}</h3>
+              <p className={`${textColor.secondary} mb-4`}>{cards[0].subtitle}</p>
               <a
                 href={`mailto:${EMAIL_CONTACT}`}
                 className={`${textColor.accent} ${fontWeight.medium} hover:underline`}
@@ -109,8 +118,8 @@ export function Contact() {
               <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
                 <Phone className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>WhatsApp</h3>
-              <p className={`${textColor.secondary} mb-4`}>Estamos disponíveis para chat</p>
+              <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>{cards[1].title}</h3>
+              <p className={`${textColor.secondary} mb-4`}>{cards[1].subtitle}</p>
               <a
                 href={`https://wa.me/${PHONE_NUMBER}`}
                 target="_blank"
@@ -125,8 +134,8 @@ export function Contact() {
               <div className="w-14 h-14 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mb-4">
                 <MapPin className="h-6 w-6 text-blue-600 dark:text-blue-400" />
               </div>
-              <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>Localização</h3>
-              <p className={`${textColor.secondary} mb-4`}>Atendemos em todo o Brasil</p>
+              <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>{cards[2].title}</h3>
+              <p className={`${textColor.secondary} mb-4`}>{cards[2].subtitle}</p>
               <span className={`${textColor.accent} ${fontWeight.medium}`}>
                 Curitiba, PR - Brasil
               </span>
@@ -137,17 +146,17 @@ export function Contact() {
           <div className="mt-16 bg-gradient-to-r from-blue-600 to-blue-500 rounded-xl shadow-xl overflow-hidden">
             <div className="p-8 sm:p-10 text-center">
               <h3 className={`${fontSize["2xl"]} ${fontWeight.bold} text-white mb-4`}>
-                Envie uma mensagem
+                {t("contact.cta.title")}
               </h3>
               <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
-                Preencha o formulário completo para detalhar seu projeto e receber uma proposta personalizada.
+                {t("contact.cta.subtitle")}
               </p>
               <Link href="/contato" passHref>
                 <Button
                   size="lg"
                   className="bg-white text-blue-600 hover:bg-blue-50 group w-full sm:w-auto px-6 sm:px-8"
                 >
-                  <span className="truncate">Preencher Formulário Completo</span>
+                  <span className="truncate">{t("contact.cta.button")}</span>
                   <ArrowRight className="ml-2 h-4 w-4 shrink-0 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
@@ -161,6 +170,8 @@ export function Contact() {
 
 // Componente do formulário completo que será usado na página separada
 export function ContactForm() {
+  const { t } = useTranslation()
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
 
@@ -221,17 +232,17 @@ export function ContactForm() {
             <Check className="h-8 w-8 text-green-600 dark:text-green-400" />
           </div>
           <h3 className={`${fontSize["2xl"]} ${fontWeight.bold} ${textColor.primary} mb-4`}>
-            Solicitação Enviada com Sucesso!
+            {t("form.success.title")}
           </h3>
           <p className={`${textColor.secondary} mb-8`}>
-            Obrigado pelo seu interesse! Recebemos sua solicitação e entraremos em contato em breve para discutir seu projeto.
+            {t("form.success.subtitle")}
           </p>
           <Link href="/" passHref>
             <Button
               variant="default"
               className="bg-blue-600 text-white"
             >
-              Voltar para a Página Inicial
+              {t("form.success.goBack")}
             </Button>
           </Link>
         </div>
@@ -249,10 +260,10 @@ export function ContactForm() {
               name="name"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Nome Completo*</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.name.title")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Seu nome"
+                      placeholder={t("form.name.placeholder")}
                       {...field}
                       className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600"
                     />
@@ -267,11 +278,11 @@ export function ContactForm() {
               name="email"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Email*</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.email.title")}</FormLabel>
                   <FormControl>
                     <Input
                       type="email"
-                      placeholder="seu.email@exemplo.com"
+                      placeholder={t("form.email.placeholder")}
                       {...field}
                       className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600"
                     />
@@ -286,10 +297,10 @@ export function ContactForm() {
               name="phone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Telefone</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.phone.title")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="(00) 00000-0000"
+                      placeholder={t("form.phone.placeholder")}
                       {...field}
                       className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600"
                     />
@@ -304,10 +315,10 @@ export function ContactForm() {
               name="company"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Empresa</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.company.title")}</FormLabel>
                   <FormControl>
                     <Input
-                      placeholder="Nome da sua empresa"
+                      placeholder={t("form.company.placeholder")}
                       {...field}
                       className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600"
                     />
@@ -324,19 +335,19 @@ export function ContactForm() {
               name="projectType"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Tipo de Projeto*</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.project.title")}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder={t("form.project.placeholder")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                      <SelectItem value="website">Website</SelectItem>
-                      <SelectItem value="webapp">Aplicação Web</SelectItem>
-                      <SelectItem value="mobile">Aplicativo Mobile</SelectItem>
-                      <SelectItem value="ecommerce">E-commerce</SelectItem>
-                      <SelectItem value="other">Outro</SelectItem>
+                      <SelectItem value="website">{t("form.project.website")}</SelectItem>
+                      <SelectItem value="webapp">{t("form.project.webapp")}</SelectItem>
+                      <SelectItem value="mobile">{t("form.project.mobile")}</SelectItem>
+                      <SelectItem value="ecommerce">{t("form.project.ecommerce")}</SelectItem>
+                      <SelectItem value="other">{t("form.project.other")}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -349,19 +360,19 @@ export function ContactForm() {
               name="budget"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Orçamento*</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.budget.title")}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder={t("form.budget.placeholder")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                      <SelectItem value="under5k">Até R$ 5.000</SelectItem>
-                      <SelectItem value="5k-15k">R$ 5.000 - R$ 15.000</SelectItem>
-                      <SelectItem value="15k-30k">R$ 15.000 - R$ 30.000</SelectItem>
-                      <SelectItem value="30k-50k">R$ 30.000 - R$ 50.000</SelectItem>
-                      <SelectItem value="over50k">Acima de R$ 50.000</SelectItem>
+                      <SelectItem value="under5k">{t("form.budget.under5k")}</SelectItem>
+                      <SelectItem value="5k-15k">{t("form.budget.5k-15k")}</SelectItem>
+                      <SelectItem value="15k-30k">{t("form.budget.15k-30k")}</SelectItem>
+                      <SelectItem value="30k-50k">{t("form.budget.30k-50k")}</SelectItem>
+                      <SelectItem value="over50k">{t("form.budget.over50k")}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -374,19 +385,19 @@ export function ContactForm() {
               name="timeline"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Prazo Desejado*</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.timeline.title")}</FormLabel>
                   <Select onValueChange={field.onChange} defaultValue={field.value}>
                     <FormControl>
                       <SelectTrigger className="bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600">
-                        <SelectValue placeholder="Selecione" />
+                        <SelectValue placeholder={t("form.timeline.placeholder")} />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent className="dark:bg-gray-800 dark:border-gray-700">
-                      <SelectItem value="urgent">Urgente (até 1 mês)</SelectItem>
-                      <SelectItem value="1-2months">1-2 meses</SelectItem>
-                      <SelectItem value="3-6months">3-6 meses</SelectItem>
-                      <SelectItem value="6months+">Mais de 6 meses</SelectItem>
-                      <SelectItem value="flexible">Flexível</SelectItem>
+                      <SelectItem value="urgent">{t("form.timeline.urgent")}</SelectItem>
+                      <SelectItem value="1-2months">{t("form.timeline.1-2months")}</SelectItem>
+                      <SelectItem value="3-6months">{t("form.timeline.3-6months")}</SelectItem>
+                      <SelectItem value="6months+">{t("form.timeline.6months+")}</SelectItem>
+                      <SelectItem value="flexible">{t("form.timeline.flexible")}</SelectItem>
                     </SelectContent>
                   </Select>
                   <FormMessage />
@@ -401,21 +412,21 @@ export function ContactForm() {
             render={() => (
               <FormItem>
                 <div className="mb-4">
-                  <FormLabel className="text-gray-700 dark:text-gray-200">Serviços Necessários*</FormLabel>
+                  <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.services.title")}</FormLabel>
                   <FormDescription className="text-gray-500 dark:text-gray-400">
-                    Selecione todos os serviços que você precisa
+                    {t("form.services.placeholder")}
                   </FormDescription>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                   {[
-                    { id: "design", label: "Design UI/UX" },
-                    { id: "frontend", label: "Desenvolvimento Frontend" },
-                    { id: "backend", label: "Desenvolvimento Backend" },
-                    { id: "mobile", label: "Desenvolvimento Mobile" },
-                    { id: "landing", label: "Landing Page" },
-                    { id: "institutional", label: "Site Institucional" },
-                    { id: "seo", label: "Otimização SEO" },
-                    { id: "maintenance", label: "Manutenção" }
+                    { id: "design", label: t("form.services.design") },
+                    { id: "frontend", label: t("form.services.frontend") },
+                    { id: "backend", label: t("form.services.backend") },
+                    { id: "mobile", label: t("form.services.mobile") },
+                    { id: "landing", label: t("form.services.landing") },
+                    { id: "institutional", label: t("form.services.institutional") },
+                    { id: "seo", label: t("form.services.seo") },
+                    { id: "maintenance", label: t("form.services.maintenance") }
                   ].map((service) => {
                     return (
                       <FormField
@@ -462,10 +473,10 @@ export function ContactForm() {
             name="description"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="text-gray-700 dark:text-gray-200">Descrição do Projeto*</FormLabel>
+                <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.description.title")}</FormLabel>
                 <FormControl>
                   <Textarea
-                    placeholder="Descreva sua ideia, objetivos, funcionalidades desejadas e qualquer outra informação relevante..."
+                    placeholder={t("form.description.placeholder")}
                     className="min-h-[120px] bg-gray-50 dark:bg-gray-700 border-gray-200 dark:border-gray-600"
                     {...field}
                   />
@@ -480,7 +491,7 @@ export function ContactForm() {
             name="contactPreference"
             render={({ field }) => (
               <FormItem className="space-y-3">
-                <FormLabel className="text-gray-700 dark:text-gray-200">Preferência de Contato*</FormLabel>
+                <FormLabel className="text-gray-700 dark:text-gray-200">{t("form.preference.title")}</FormLabel>
                 <FormControl>
                   <RadioGroup
                     onValueChange={field.onChange}
@@ -492,7 +503,7 @@ export function ContactForm() {
                         <RadioGroupItem value="email" />
                       </FormControl>
                       <FormLabel className="font-normal cursor-pointer text-gray-700 dark:text-gray-200">
-                        Email
+                        {t("form.preference.email")}
                       </FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
@@ -500,7 +511,7 @@ export function ContactForm() {
                         <RadioGroupItem value="phone" />
                       </FormControl>
                       <FormLabel className="font-normal cursor-pointer text-gray-700 dark:text-gray-200">
-                        Telefone
+                        {t("form.preference.phone")}
                       </FormLabel>
                     </FormItem>
                     <FormItem className="flex items-center space-x-3 space-y-0">
@@ -508,7 +519,7 @@ export function ContactForm() {
                         <RadioGroupItem value="whatsapp" />
                       </FormControl>
                       <FormLabel className="font-normal cursor-pointer text-gray-700 dark:text-gray-200">
-                        WhatsApp
+                        {t("form.preference.whatsapp")}
                       </FormLabel>
                     </FormItem>
                   </RadioGroup>
@@ -531,7 +542,7 @@ export function ContactForm() {
                 </FormControl>
                 <div className="space-y-1 leading-none">
                   <FormLabel className="font-normal cursor-pointer text-gray-700 dark:text-gray-200">
-                    Concordo com os termos de serviço e política de privacidade*
+                    {t("form.terms")}
                   </FormLabel>
                 </div>
                 <FormMessage />
@@ -547,10 +558,10 @@ export function ContactForm() {
             {isSubmitting ? (
               <>
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                Enviando...
+                {t("form.sending")}
               </>
             ) : (
-              "Enviar Solicitação"
+              t("form.button")
             )}
           </Button>
         </form>

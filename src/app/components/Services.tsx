@@ -1,3 +1,8 @@
+'use client'
+
+import { useTranslation } from "react-i18next"
+import { LucideIcon, Code, Smartphone, PenTool, Search, Layers, Zap } from 'lucide-react'
+
 import {
   Card,
   CardContent,
@@ -6,11 +11,55 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
-import { content } from "../content/page-content"
 import { sectionHeader, textColor, bgColor, cardStyles } from "../styles/theme"
 
+type Item = {
+  title: string;
+  subtitle: string;
+  description: string;
+  features: string[];
+}
+
+type ServiceIcon = {
+  titles: string[];
+  icon: LucideIcon;
+}
+
+const serviceIcons: ServiceIcon[] = [
+  {
+    titles: ["Desenvolvimento Web", "Web Development", "Desarrollo Web"],
+    icon: Code
+  },
+  {
+    titles: ["Desenvolvimento Mobile", "Mobile Development", "Desarrollo Móvil"],
+    icon: Smartphone
+  },
+  {
+    titles: ["UX/UI Design", "UX/UI Design", "Diseño UX/UI"],
+    icon: PenTool
+  },
+  {
+    titles: ["Consultoria Técnica", "Technical Consulting", "Consultoría Técnica"],
+    icon: Search
+  },
+  {
+    titles: ["Integrações e APIs", "Integrations & APIs", "Integraciones y APIs"],
+    icon: Layers
+  },
+  {
+    titles: ["Otimização de Performance", "Performance Optimization", "Optimización de Rendimiento"],
+    icon: Zap
+  }
+]
+
 export function Services() {
-  const { title, subtitle, items } = content.services
+  const { t } = useTranslation('common')
+  const items = t('services.items', { returnObjects: true }) as Item[];
+
+  const getIcon = (title: string) => {
+    const service = serviceIcons.find(service => service.titles.includes(title))
+    return service ? <service.icon className={`h-6 w-6 ${textColor.accent}`} /> : null
+  }
 
   return (
     <section
@@ -24,34 +73,34 @@ export function Services() {
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
-            Serviços
+            {t('services.badge')}
           </div>
           <h2 className={sectionHeader.title}>
-            {title}
+            {t('services.title')}
           </h2>
           <p className={sectionHeader.subtitle}>
-            {subtitle}
+            {t('services.subtitle')}
           </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {items.map((service, index) => (
+          {items.map((item, index) => (
             <Card key={index} className={cardStyles.bordered}>
               <CardHeader className="pb-2">
                 <div className={`w-12 h-12 rounded-full ${bgColor.accentLight} flex items-center justify-center mb-4`}>
-                  <service.Icon className={`h-6 w-6 ${textColor.accent}`} />
+                  {getIcon(item.title)}
                 </div>
-                <CardTitle className={textColor.primary}>{service.title}</CardTitle>
+                <CardTitle className={textColor.primary}>{item.title}</CardTitle>
                 <CardDescription className={textColor.tertiary}>
-                  {service.subtitle}
+                  {item.subtitle}
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <p className={textColor.secondary}>
-                  {service.description}
+                  {item.description}
                 </p>
                 <ul className="mt-4 space-y-2">
-                  {service.features.map((feature, idx) => (
+                  {item.features.map((feature, idx) => (
                     <li key={idx} className={`flex items-start ${textColor.secondary}`}>
                       <span className={`mr-2 mt-1 ${textColor.accent}`}>•</span>
                       {feature}

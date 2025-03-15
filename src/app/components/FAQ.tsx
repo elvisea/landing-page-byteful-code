@@ -1,6 +1,6 @@
 'use client'
 
-import { content } from "../content/page-content"
+import { FAQItem } from "../content/page-content"
 
 import {
   Accordion,
@@ -10,13 +10,17 @@ import {
 } from "@/components/ui/accordion"
 
 import {
+  textColor,
   sectionStyles,
   sectionHeader,
-  textColor
 } from "../styles/theme"
 
+import { useTranslation } from "react-i18next"
+
 export function FAQ() {
-  const { title, subtitle, items } = content.faq
+  const { t } = useTranslation()
+
+  const items = t("faq.items", { returnObjects: true }) as FAQItem[]
 
   return (
     <section
@@ -30,13 +34,13 @@ export function FAQ() {
       <div className="container mx-auto px-4">
         <div className={sectionHeader.wrapper}>
           <div className={sectionHeader.badge}>
-            FAQ
+            {t("faq.badge")}
           </div>
           <h2 className={sectionHeader.title}>
-            {title}
+            {t("faq.title")}
           </h2>
           <p className={sectionHeader.subtitle}>
-            {subtitle}
+            {t("faq.subtitle")}
           </p>
         </div>
 

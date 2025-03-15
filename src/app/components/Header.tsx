@@ -18,6 +18,7 @@ import {
 } from "@/components/ui/sheet"
 
 import { ModeToggle } from "./ModeToggle"
+import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 
 import { content } from "../content/page-content"
 import { buttonStyles, textColor } from "../styles/theme"
@@ -88,6 +89,7 @@ export function Header() {
             >
               {content.header.menu.contact}
             </Link>
+            <LanguageSwitcher />
             <ModeToggle />
             <Link href="/contato" passHref>
               <Button size="lg" className={buttonStyles.primary}>
@@ -153,6 +155,9 @@ export function Header() {
                     >
                       {content.header.menu.contact}
                     </Link>
+                    <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
+                      <LanguageSwitcher variant="mobile" />
+                    </div>
                   </nav>
                   <div className="p-6 border-t border-gray-200 dark:border-gray-700">
                     <Link href="/contato" passHref>
