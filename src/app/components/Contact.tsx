@@ -46,32 +46,11 @@ import {
   buttonStyles
 } from "../styles/theme"
 
-import { t as tI18n } from "i18next"
-
-
-const formSchema = z.object({
-  name: z.string().min(2, { message: tI18n("validation.name.min") }),
-  email: z.string().email({ message: tI18n("validation.email.email") }),
-  phone: z.string().min(10, { message: tI18n("validation.phone.min") }).optional(),
-  company: z.string().optional(),
-  projectType: z.string(),
-  budget: z.string(),
-  timeline: z.string(),
-  description: z.string().min(10, { message: tI18n("validation.description.min") }),
-  contactPreference: z.string(),
-  services: z.array(z.string()).refine((value) => value.length > 0, {
-    message: tI18n("validation.services.required"),
-  }),
-  termsAccepted: z.boolean().refine((val) => val === true, {
-    message: tI18n("validation.termsAccepted.required"),
-  }),
-})
-
 export function Contact() {
+  const { t } = useTranslation()
+
   const PHONE_NUMBER = '5541992190528';
   const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
-
-  const { t } = useTranslation()
 
   const cards = t("contact.cards", { returnObjects: true }) as { title: string, subtitle: string, icon: string }[]
 
@@ -171,6 +150,32 @@ export function Contact() {
 // Componente do formulário completo que será usado na página separada
 export function ContactForm() {
   const { t } = useTranslation()
+
+  const formSchema = z.object({
+    name: z.string({ message: "Name is required" }).min(2, {
+      message: "Name must be at least 2 characters"
+    }),
+    email: z.string({ message: "Email is required" }).email({
+      message: "Invalid email"
+    }),
+    phone: z.string({ message: "Phone is required" }).min(10, {
+      message: "Phone must be at least 10 characters"
+    }).optional(),
+    company: z.string().optional(),
+    projectType: z.string(),
+    budget: z.string(),
+    timeline: z.string(),
+    description: z.string({ message: "Description is required" }).min(10, {
+      message: "Description must be at least 10 characters"
+    }),
+    contactPreference: z.string(),
+    services: z.array(z.string()).refine((value) => value.length > 0, {
+      message: "Select at least one service",
+    }),
+    termsAccepted: z.boolean().refine((val) => val === true, {
+      message: "You must agree to the terms of service and privacy policy",
+    }),
+  })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)

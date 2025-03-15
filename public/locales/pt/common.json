@@ -326,5 +326,15 @@
     "services": {
       "required": "Selecione pelo menos um serviço"
     }
+  },
+  "header": {
+    "menu": {
+      "services": "Serviços",
+      "process": "Processo",
+      "testimonials": "Depoimentos",
+      "contact": "Contato",
+      "faq": "FAQ",
+      "description": "Navegue pelo site"
+    }
   }
 }

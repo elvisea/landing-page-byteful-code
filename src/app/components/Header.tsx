@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 
 import { Menu } from "lucide-react"
+import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/button"
 
@@ -24,6 +25,7 @@ import { content } from "../content/page-content"
 import { buttonStyles, textColor } from "../styles/theme"
 
 export function Header() {
+  const { t } = useTranslation()
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isSheetOpen, setIsSheetOpen] = useState(false)
@@ -63,37 +65,37 @@ export function Header() {
               href="/#services"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {content.header.menu.services}
+              {t("header.menu.services")}
             </Link>
             <Link
               href="/#process"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {content.header.menu.process}
+              {t("header.menu.process")}
             </Link>
             <Link
               href="/#testimonials"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {content.header.menu.testimonials}
+              {t("header.menu.testimonials")}
             </Link>
             <Link
               href="/#faq"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              FAQ
+              {t("header.menu.faq")}
             </Link>
             <Link
               href="/#contact"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {content.header.menu.contact}
+              {t("header.menu.contact")}
             </Link>
             <LanguageSwitcher />
             <ModeToggle />
             <Link href="/contato" passHref>
               <Button size="lg" className={buttonStyles.primary}>
-                Contato
+                {t("header.menu.contact")}
               </Button>
             </Link>
           </nav>
@@ -115,7 +117,7 @@ export function Header() {
                         {content.header.logo}
                       </SheetTitle>
                       <SheetDescription className="text-left">
-                        Navegue pelo nosso site
+                        {t("header.menu.description")}
                       </SheetDescription>
                     </SheetHeader>
                   </div>
@@ -125,35 +127,35 @@ export function Header() {
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {content.header.menu.services}
+                      {t("header.menu.services")}
                     </Link>
                     <Link
                       href="/#process"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {content.header.menu.process}
+                      {t("header.menu.process")}
                     </Link>
                     <Link
                       href="/#testimonials"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {content.header.menu.testimonials}
+                      {t("header.menu.testimonials")}
                     </Link>
                     <Link
                       href="/#faq"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      FAQ
+                      {t("header.menu.faq")}
                     </Link>
                     <Link
                       href="/#contact"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {content.header.menu.contact}
+                      {t("header.menu.contact")}
                     </Link>
                     <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                       <LanguageSwitcher variant="mobile" />
@@ -162,7 +164,7 @@ export function Header() {
                   <div className="p-6 border-t border-gray-200 dark:border-gray-700">
                     <Link href="/contato" passHref>
                       <Button className={`w-full ${buttonStyles.primary}`} onClick={handleLinkClick}>
-                        Contato
+                        {t("header.menu.contact")}
                       </Button>
                     </Link>
                   </div>

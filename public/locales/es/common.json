@@ -234,11 +234,11 @@
     },
     "email": {
       "title": "Email*",
-      "placeholder": "Digite seu email"
+      "placeholder": "Ingrese su email"
     },
     "phone": {
-      "title": "Telefone",
-      "placeholder": "Digite seu telefone"
+      "title": "Teléfono",
+      "placeholder": "Ingrese su teléfono"
     },
     "company": {
       "title": "Empresa",
@@ -275,8 +275,8 @@
       "over50k": "Más de 50.000"
     },
     "timeline": {
-      "title": "Prazo Desejado*",
-      "placeholder": "Selecione",
+      "title": "Plazo Deseado*",
+      "placeholder": "Seleccionar",
       "urgent": "Urgente (hasta 1 mes)",
       "1-2months": "1-2 meses",
       "3-6months": "3-6 meses",
@@ -284,13 +284,13 @@
       "flexible": "Flexible"
     },
     "description": {
-      "title": "Descrição do Projeto*",
-      "placeholder": "Descreva sua ideia, objetivos, funcionalidades desejadas e qualquer outra informação relevante..."
+      "title": "Descripción del Proyecto*",
+      "placeholder": "Describa su idea, objetivos, funcionalidades desejadas e qualquer outra informação relevante..."
     },
     "preference": {
-      "title": "Preferência de Contato*",
+      "title": "Preferencia de Contacto*",
       "email": "Email",
-      "phone": "Telefone",
+      "phone": "Teléfono",
       "whatsapp": "WhatsApp"
     },
     "terms": "Concordo con los términos de servicio y política de privacidad*",
@@ -325,6 +325,16 @@
     },
     "services": {
       "required": "Seleccione al menos un servicio"
+    }
+  },
+  "header": {
+    "menu": {
+      "services": "Servicios",
+      "process": "Proceso",
+      "testimonials": "Testimonios",
+      "contact": "Contacto",
+      "faq": "FAQ",
+      "description": "Navegue por el sitio"
     }
   }
 }
