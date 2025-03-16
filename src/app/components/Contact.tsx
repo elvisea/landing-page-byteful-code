@@ -538,17 +538,19 @@ export function ContactForm() {
             control={form.control}
             name="termsAccepted"
             render={({ field }) => (
-              <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                <FormControl>
-                  <Checkbox
-                    checked={field.value}
-                    onCheckedChange={field.onChange}
-                  />
-                </FormControl>
-                <div className="space-y-1 leading-none">
-                  <FormLabel className="font-normal cursor-pointer text-gray-700 dark:text-gray-200">
-                    {t("form.terms")}
-                  </FormLabel>
+              <FormItem className="">
+                <div className="flex flex-row items-center space-x-3 space-y-0">
+                  <FormControl>
+                    <Checkbox
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                  <div className="space-y-1 leading-none">
+                    <FormLabel className="font-normal cursor-pointer text-gray-700 dark:text-gray-200">
+                      {t("form.terms")}
+                    </FormLabel>
+                  </div>
                 </div>
                 <FormMessage />
               </FormItem>
