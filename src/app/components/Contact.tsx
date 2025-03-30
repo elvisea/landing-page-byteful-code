@@ -182,6 +182,7 @@ export function ContactForm() {
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+
     defaultValues: {
       name: "",
       email: "",
@@ -195,6 +196,7 @@ export function ContactForm() {
       services: [],
       termsAccepted: false,
     },
+
   })
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
