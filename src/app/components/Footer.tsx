@@ -69,7 +69,7 @@ export function Footer() {
                 {PHONE_NUMBER}
               </li>
               <li>
-                <Link href="/contato" className={`${textColor.accent} font-medium`}>
+                <Link href="/contact" className={`${textColor.accent} font-medium`}>
                   Solicitar orçamento
                 </Link>
               </li>

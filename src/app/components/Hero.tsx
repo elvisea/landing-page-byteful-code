@@ -6,10 +6,43 @@ import { useTranslation } from 'react-i18next'
 
 import { Button } from "@/components/ui/button"
 
+import { useClickTracking } from "../hooks/useClickTracking"
 import { textColor, bgColor, buttonStyles } from "../styles/theme"
 
 export function Hero() {
   const { t } = useTranslation()
+
+  const handleClickContact = useClickTracking({
+    type: "button",
+    data: {
+      label:t('hero.cta'),
+      category: "cta",
+      section: "hero",
+      component: "cta_button",
+      action: "click_contact",
+      elementId: "cta-contact-button",
+      elementState: "active",
+      elementPosition: "bottom",
+      url: "/#contact",
+      analyticsGroupId: "conversion",
+    },
+  });
+
+  const handleClickServices = useClickTracking({
+    type: "button",
+    data: {
+      label: t('hero.services'),
+      category: "cta",
+      section: "hero",
+      component: "cta_button",
+      action: "click_services",
+      elementId: "cta-services-button",
+      elementState: "active",
+      elementPosition: "bottom",
+      url: "/#services",
+      analyticsGroupId: "conversion",
+    },
+  });
 
   return (
     <section
@@ -37,15 +70,18 @@ export function Hero() {
               <Link href="/#contact">
                 <Button
                   size="lg"
+                  onClick={handleClickContact}
                   className={`${buttonStyles.primary} px-8 group`}
                 >
                   {t('hero.cta')}
                   <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </Button>
               </Link>
+
               <Link href="/#services">
                 <Button
                   size="lg"
+                  onClick={handleClickServices}
                   variant="outline"
                   className="border-gray-300 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800 px-8"
                 >

@@ -46,13 +46,46 @@ import {
   buttonStyles
 } from "../styles/theme"
 
+import { useSocialTracking } from "../hooks/useSocialTracking"
+import { useClickTracking } from "../hooks/useClickTracking"
+
 export function Contact() {
   const { t } = useTranslation()
 
   const PHONE_NUMBER = '5541992190528';
   const EMAIL_CONTACT = process.env.EMAIL_CONTACT || "contato@bytefulcode.tech";
 
+  const emailUrl = `mailto:${EMAIL_CONTACT}`
+  const whatsAppUrl = `https://wa.me/${PHONE_NUMBER}`
+
   const cards = t("contact.cards", { returnObjects: true }) as { title: string, subtitle: string, icon: string }[]
+
+  // Hooks de rastreamento para cada rede social
+  const handleEmailClick = useSocialTracking({
+    network: "email",
+    url: emailUrl
+  });
+  
+  const handleWhatsAppClick = useSocialTracking({
+    network: "whatsapp",
+    url: whatsAppUrl
+  });
+
+  const handleClick = useClickTracking({
+    type: "button",
+    data: {
+      label: t("contact.cta.button"),
+      category: "cta",
+      section: "main",
+      component: "cta_button",
+      action: "click_contact",
+      elementId: "cta-contact-button",
+      elementState: "active",
+      elementPosition: "bottom",
+      url: "/contact",
+      analyticsGroupId: "conversion",
+    },
+  });
 
   return (
     <section
@@ -86,7 +119,8 @@ export function Contact() {
               <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>{cards[0].title}</h3>
               <p className={`${textColor.secondary} mb-4`}>{cards[0].subtitle}</p>
               <a
-                href={`mailto:${EMAIL_CONTACT}`}
+                href={emailUrl}
+                onClick={handleEmailClick}
                 className={`${textColor.accent} ${fontWeight.medium} hover:underline`}
               >
                 {EMAIL_CONTACT}
@@ -100,9 +134,10 @@ export function Contact() {
               <h3 className={`${fontSize.xl} ${fontWeight.semibold} ${textColor.primary} mb-2`}>{cards[1].title}</h3>
               <p className={`${textColor.secondary} mb-4`}>{cards[1].subtitle}</p>
               <a
-                href={`https://wa.me/${PHONE_NUMBER}`}
+                href={whatsAppUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleWhatsAppClick}
                 className={`${textColor.accent} ${fontWeight.medium} hover:underline`}
               >
                 (41) 99219-0528
@@ -130,9 +165,10 @@ export function Contact() {
               <p className="text-blue-100 mb-8 max-w-2xl mx-auto">
                 {t("contact.cta.subtitle")}
               </p>
-              <Link href="/contato" passHref>
+              <Link href="/contact" passHref>
                 <Button
                   size="lg"
+                  onClick={handleClick}
                   className="bg-white text-blue-600 hover:bg-blue-50 group w-full sm:w-auto px-6 sm:px-8"
                 >
                   <span className="truncate">{t("contact.cta.button")}</span>

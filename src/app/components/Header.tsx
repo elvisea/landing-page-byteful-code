@@ -23,6 +23,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher"
 
 import { content } from "../content/page-content"
 import { buttonStyles, textColor } from "../styles/theme"
+import { useClickTracking } from "../hooks/useClickTracking"
 
 export function Header() {
   const { t } = useTranslation()
@@ -39,12 +40,27 @@ export function Header() {
     return () => window.removeEventListener("scroll", handleScroll)
   }, [])
 
+  const handleClickContact = useClickTracking({
+    type: "button",
+    data: {
+      label: t("header.menu.contact"),
+      category: "cta",
+      section: "main",
+      component: "header",
+      action: "click_contact",          
+      elementPosition: "bottom",
+      url: "/contact",
+      analyticsGroupId: "conversion",
+    },
+  });
+
   const handleLinkClick = () => {
     setIsSheetOpen(false)
+    handleClickContact()
   }
 
   // Não mostrar o header na página de contato
-  if (pathname === "/contato") return null;
+  if (pathname === "/contact") return null;
 
   return (
     <header
@@ -93,8 +109,8 @@ export function Header() {
             </Link>
             <LanguageSwitcher />
             <ModeToggle />
-            <Link href="/contato" passHref>
-              <Button size="lg" className={buttonStyles.primary}>
+            <Link href="/contact" passHref>
+              <Button size="lg" className={buttonStyles.primary} onClick={handleClickContact}>
                 {t("header.menu.contact")}
               </Button>
             </Link>
@@ -162,7 +178,7 @@ export function Header() {
                     </div>
                   </nav>
                   <div className="p-6 border-t border-gray-200 dark:border-gray-700">
-                    <Link href="/contato" passHref>
+                    <Link href="/contact" passHref>
                       <Button className={`w-full ${buttonStyles.primary}`} onClick={handleLinkClick}>
                         {t("header.menu.contact")}
                       </Button>

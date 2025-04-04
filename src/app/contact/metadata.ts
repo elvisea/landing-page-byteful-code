@@ -38,7 +38,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Entre em Contato | BytefulCode",
     description: "Entre em contato com a BytefulCode. Solicite um orçamento para seu projeto de software, aplicativo ou sistema web.",
-    url: "https://bytefulcode.tech/contato",
+    url: "https://bytefulcode.tech/contact",
     images: [
       {
         url: "/og-image-contact.png",
@@ -49,6 +49,6 @@ export const metadata: Metadata = {
     ]
   },
   alternates: {
-    canonical: "https://bytefulcode.tech/contato"
+    canonical: "https://bytefulcode.tech/contact"
   }
 } 

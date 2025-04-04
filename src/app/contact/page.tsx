@@ -9,10 +9,16 @@ import { Button } from "@/components/ui/button"
 import { ContactForm } from "../components/Contact"
 import { WhatsAppButton } from "../components/WhatsAppButton"
 
+import { usePageTracking } from "../hooks/usePageTracking"
 import { buttonStyles, textColor, fontSize, fontWeight } from "../styles/theme"
 
 export default function ContactPage() {
   const { t } = useTranslation()
+
+  usePageTracking({
+    pageTitle: "Contact",
+    pagePath: "/contact",
+  });
 
   return (
     <>

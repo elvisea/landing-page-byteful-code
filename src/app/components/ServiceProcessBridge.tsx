@@ -6,10 +6,44 @@ import { useTranslation } from "react-i18next"
 
 import { Button } from "@/components/ui/button"
 
+import { useClickTracking } from "../hooks/useClickTracking"
 import { fontSize, fontWeight } from "../styles/theme"
 
 export function ServiceProcessBridge() {
   const { t } = useTranslation()
+
+  const handleClickProcess = useClickTracking({
+    type: "button",
+    data: {
+      label: t("processBridge.knowOurProcess"),
+      category: "cta",
+      section: "service_process_bridge",
+      component: "cta_button",
+      action: "click_process",
+      elementId: "cta-process-button",
+      elementState: "active",
+      elementPosition: "bottom",
+      url: "/#process",
+      analyticsGroupId: "conversion",
+    },
+  });
+
+  const handleClickContact = useClickTracking({
+    type: "button",
+    data: {
+      label: t("processBridge.requestAQuote"),
+      category: "cta",
+      section: "service_process_bridge",
+      component: "cta_button",
+      action: "click_contact",
+      elementId: "cta-contact-button",
+      elementState: "active",
+      elementPosition: "bottom",
+      url: "/contact",
+      analyticsGroupId: "conversion",
+    },
+  });
+  
   return (
     <section
       aria-label="Transição de Serviços"
@@ -31,15 +65,18 @@ export function ServiceProcessBridge() {
                 <Link href="/#process">
                   <Button
                     size="lg"
+                    onClick={handleClickProcess}
                     className="bg-white text-blue-600 hover:bg-blue-50 group px-8"
                   >
                     {t("processBridge.knowOurProcess")}
                     <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
                   </Button>
                 </Link>
-                <Link href="/contato" passHref>
+
+                <Link href="/contact" passHref>
                   <Button
                     size="lg"
+                    onClick={handleClickContact}
                     variant="outline"
                     className="bg-transparent border-white text-white hover:bg-blue-700/20 px-8"
                   >

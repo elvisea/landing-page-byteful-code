@@ -6,7 +6,9 @@ import { ThemeProvider } from "next-themes";
 
 import I18nProvider from '@/i18n/I18nProvider'
 import { websiteSchema, organizationSchema } from '@/lib/schema'
+
 import { Header } from './components/Header'
+import { FirebaseProvider } from "./providers/firebase-provider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -32,17 +34,19 @@ export default function RootLayout({
         />
       </head>
       <body className={inter.className}>
-        <I18nProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="system"
-            enableSystem
-            disableTransitionOnChange
-          >
-            <Header />
-            {children}
-          </ThemeProvider>
-        </I18nProvider>
+        <FirebaseProvider>
+          <I18nProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="system"
+              enableSystem
+              disableTransitionOnChange
+            >
+              <Header />
+              {children}
+            </ThemeProvider>
+          </I18nProvider>
+        </FirebaseProvider>
       </body>
     </html>
   );

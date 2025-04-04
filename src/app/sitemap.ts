@@ -21,7 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
     // Página de Contato
     {
-      url: `${BASE_URL}/contato`,
+      url: `${BASE_URL}/contact`,
       lastModified: LAST_MODIFIED.contact,
       changeFrequency: 'monthly',
       priority: 0.9,
