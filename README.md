@@ -2,7 +2,7 @@
 
 Uma landing page moderna e multilíngue para a BytefulCode, empresa especializada em desenvolvimento web e mobile.
 
-![BytefulCode](https://landing.bytefulcode.tech/og-image.png)
+![BytefulCode](https://bytefulcode.tech/og-image.png)
 
 ## 🚀 Tecnologias
 
@@ -91,4 +91,4 @@ Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para ma
 
 ## 👨‍💻 Desenvolvido por
 
-- [BytefulCode](https://landing.bytefulcode.tech) - Transformamos ideias em soluções digitais
+- [BytefulCode](https://bytefulcode.tech) - Transformamos ideias em soluções digitais
