@@ -1,19 +1,19 @@
-import { firebaseService } from "@/lib/firebase-config";
+import { firebaseService } from '@/lib/firebase-config';
 
 // Tipos predefinidos comuns, mas não limitados a estes
 export type CommonClickType =
-  | "email"
-  | "location"
-  | "phone"
-  | "external_link"
-  | "button"
-  | "link"
-  | "menu"
-  | "tab"
-  | "card"
-  | "image"
-  | "icon"
-  | "form_submit";
+  | 'email'
+  | 'location'
+  | 'phone'
+  | 'external_link'
+  | 'button'
+  | 'link'
+  | 'menu'
+  | 'tab'
+  | 'card'
+  | 'image'
+  | 'icon'
+  | 'form_submit';
 
 // Propriedades base que sempre estarão disponíveis
 interface BaseClickData {
@@ -70,7 +70,7 @@ interface UseClickTrackingProps {
 
 export function useClickTracking({ type, data = {} }: UseClickTrackingProps) {
   return () => {
-    firebaseService.logEvent("click_tracking", {
+    firebaseService.logEvent('click_tracking', {
       click_type: type,
       ...data,
       environment: process.env.NODE_ENV,

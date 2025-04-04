@@ -18,6 +18,7 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 ## 🌍 Multilíngue
 
 A aplicação suporta três idiomas:
+
 - 🇧🇷 Português (padrão)
 - 🇺🇸 Inglês
 - 🇪🇸 Espanhol
@@ -31,6 +32,43 @@ A aplicação suporta três idiomas:
 - SEO otimizado
 - Performance otimizada
 - Acessibilidade
+
+## 🧩 Qualidade de Código
+
+O projeto utiliza ferramentas que garantem a qualidade e consistência do código:
+
+### ESLint
+
+Utilizamos ESLint para garantir a qualidade do código e seguir as melhores práticas:
+
+```bash
+# Verificar problemas
+pnpm lint
+
+# Verificar e corrigir automaticamente
+pnpm lint:fix
+```
+
+### Prettier
+
+Utilizamos Prettier para manter uma formatação consistente em todo o código:
+
+```bash
+# Formatar todos os arquivos
+pnpm format
+
+# Verificar se todos os arquivos estão formatados corretamente
+pnpm format:check
+```
+
+### Script de Qualidade
+
+Um script auxiliar está disponível para verificar e corrigir problemas de qualidade do código:
+
+```bash
+# Executar verificação e correção completa
+./scripts/lint-format.sh
+```
 
 ## 🛠️ Instalação
 

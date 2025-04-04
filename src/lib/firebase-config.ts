@@ -1,14 +1,9 @@
 // Import the functions you need from the SDKs you need
-import { initializeApp, FirebaseApp } from "firebase/app";
+import { initializeApp, FirebaseApp } from 'firebase/app';
 
-import {
-  Analytics,
-  getAnalytics,
-  isSupported,
-  logEvent,
-} from "firebase/analytics";
+import { Analytics, getAnalytics, isSupported, logEvent } from 'firebase/analytics';
 
-import { Logger } from "./logger";
+import { Logger } from './logger';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -47,20 +42,20 @@ class FirebaseService {
   }
 
   private async initializeAnalytics(): Promise<void> {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
     try {
       const supported = await isSupported();
       if (supported) {
         this.analytics = getAnalytics(this.app);
-        Logger.info("Firebase Analytics inicializado com sucesso", {
-          prefix: "Firebase",
+        Logger.info('Firebase Analytics inicializado com sucesso', {
+          prefix: 'Firebase',
         });
       }
     } catch (err) {
       Logger.error(
-        `Erro ao verificar suporte do Analytics: ${err instanceof Error ? err.message : "Erro desconhecido"}`,
-        { prefix: "Firebase" },
+        `Erro ao verificar suporte do Analytics: ${err instanceof Error ? err.message : 'Erro desconhecido'}`,
+        { prefix: 'Firebase' }
       );
     }
   }
@@ -71,19 +66,18 @@ class FirebaseService {
         logEvent(this.analytics, eventName, eventParams);
         Logger.info(
           `Evento registrado: ${eventName} - Parâmetros: ${JSON.stringify(eventParams)}`,
-          { prefix: "Firebase" },
+          { prefix: 'Firebase' }
         );
       } catch (error) {
         Logger.error(
-          `Erro ao registrar evento ${eventName}: ${error instanceof Error ? error.message : "Erro desconhecido"}`,
-          { prefix: "Firebase" },
+          `Erro ao registrar evento ${eventName}: ${error instanceof Error ? error.message : 'Erro desconhecido'}`,
+          { prefix: 'Firebase' }
         );
       }
     } else {
-      Logger.warn(
-        `Analytics não disponível para registrar evento: ${eventName}`,
-        { prefix: "Firebase" },
-      );
+      Logger.warn(`Analytics não disponível para registrar evento: ${eventName}`, {
+        prefix: 'Firebase',
+      });
     }
   }
 
@@ -100,9 +94,6 @@ class FirebaseService {
 export const firebaseService = FirebaseService.getInstance();
 
 // Exporta um método simplificado para logging de eventos
-export const logAnalyticsEvent = (
-  eventName: string,
-  eventParams?: EventParams,
-): void => {
+export const logAnalyticsEvent = (eventName: string, eventParams?: EventParams): void => {
   firebaseService.logEvent(eventName, eventParams);
 };

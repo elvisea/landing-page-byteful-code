@@ -1,7 +1,7 @@
-import i18n from 'i18next'
-import { initReactI18next } from 'react-i18next'
-import LanguageDetector from 'i18next-browser-languagedetector'
-import Backend from 'i18next-http-backend'
+import i18n from 'i18next';
+import { initReactI18next } from 'react-i18next';
+import LanguageDetector from 'i18next-browser-languagedetector';
+import Backend from 'i18next-http-backend';
 
 i18n
   .use(Backend)
@@ -13,11 +13,11 @@ i18n
     defaultNS: 'common',
     ns: ['common'],
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
     },
     detection: {
-      order: ['path', 'navigator']
-    }
-  })
+      order: ['path', 'navigator'],
+    },
+  });
 
-export default i18n 
+export default i18n;

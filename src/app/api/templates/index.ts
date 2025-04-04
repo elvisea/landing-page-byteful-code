@@ -1,6 +1,6 @@
-import { FormData } from "../types";
+import { FormData } from '../types';
 
-import { colors } from "../constants";
+import { colors } from '../constants';
 
 // Template de email para a empresa
 const getCompanyEmailTemplate = (data: FormData) => `
@@ -148,7 +148,7 @@ const getCompanyEmailTemplate = (data: FormData) => `
       </div>
     </body>
   </html>
-`
+`;
 
 // Template de email para o cliente
 const getClientEmailTemplate = (data: FormData) => `
@@ -284,6 +284,6 @@ const getClientEmailTemplate = (data: FormData) => `
       </div>
     </body>
   </html>
-`
+`;
 
-export { getClientEmailTemplate, getCompanyEmailTemplate }
+export { getClientEmailTemplate, getCompanyEmailTemplate };

@@ -1,5 +1,5 @@
-import Link from 'next/link'
-import { Button } from "@/components/ui/button"
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export default function NotFound() {
   return (
@@ -12,11 +12,9 @@ export default function NotFound() {
           Desculpe, a página que você está procurando não existe.
         </p>
         <Link href="/" passHref>
-          <Button className="bg-blue-600 text-white">
-            Voltar para a Página Inicial
-          </Button>
+          <Button className="bg-blue-600 text-white">Voltar para a Página Inicial</Button>
         </Link>
       </div>
     </div>
-  )
-} 
+  );
+}

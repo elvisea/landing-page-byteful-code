@@ -1,27 +1,25 @@
-'use client'
+'use client';
 
-import { MessageCircle } from "lucide-react"
+import { MessageCircle } from 'lucide-react';
 
-import { useSocialTracking } from "../hooks/useSocialTracking";
-import { Button } from "@/components/ui/button"
+import { useSocialTracking } from '../hooks/useSocialTracking';
+import { Button } from '@/components/ui/button';
 
-const PHONE_NUMBER = "5541992190528"
+const PHONE_NUMBER = '5541992190528';
 
 export function WhatsAppButton() {
-
   const handleSocialClick = useSocialTracking({
-    network: "whatsapp",
+    network: 'whatsapp',
     url: `https://wa.me/${PHONE_NUMBER}`,
   });
 
-
   const handleWhatsAppClick = () => {
     const message = encodeURIComponent(
-      "Olá! Gostaria de conversar sobre o desenvolvimento de um projeto. Podem me ajudar?"
-    )
+      'Olá! Gostaria de conversar sobre o desenvolvimento de um projeto. Podem me ajudar?'
+    );
     handleSocialClick();
-    window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank')
-  }
+    window.open(`https://wa.me/${PHONE_NUMBER}?text=${message}`, '_blank');
+  };
 
   return (
     <Button
@@ -31,5 +29,5 @@ export function WhatsAppButton() {
     >
       <MessageCircle className="h-6 w-6" />
     </Button>
-  )
-} 
+  );
+}

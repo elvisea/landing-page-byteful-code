@@ -1,46 +1,46 @@
-'use client'
+'use client';
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
-import { useTranslation } from 'react-i18next'
+import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 
-import { useClickTracking } from "../hooks/useClickTracking"
-import { textColor, bgColor, buttonStyles } from "../styles/theme"
+import { useClickTracking } from '../hooks/useClickTracking';
+import { textColor, bgColor, buttonStyles } from '../styles/theme';
 
 export function Hero() {
-  const { t } = useTranslation()
+  const { t } = useTranslation();
 
   const handleClickContact = useClickTracking({
-    type: "button",
+    type: 'button',
     data: {
-      label:t('hero.cta'),
-      category: "cta",
-      section: "hero",
-      component: "cta_button",
-      action: "click_contact",
-      elementId: "cta-contact-button",
-      elementState: "active",
-      elementPosition: "bottom",
-      url: "/#contact",
-      analyticsGroupId: "conversion",
+      label: t('hero.cta'),
+      category: 'cta',
+      section: 'hero',
+      component: 'cta_button',
+      action: 'click_contact',
+      elementId: 'cta-contact-button',
+      elementState: 'active',
+      elementPosition: 'bottom',
+      url: '/#contact',
+      analyticsGroupId: 'conversion',
     },
   });
 
   const handleClickServices = useClickTracking({
-    type: "button",
+    type: 'button',
     data: {
       label: t('hero.services'),
-      category: "cta",
-      section: "hero",
-      component: "cta_button",
-      action: "click_services",
-      elementId: "cta-services-button",
-      elementState: "active",
-      elementPosition: "bottom",
-      url: "/#services",
-      analyticsGroupId: "conversion",
+      category: 'cta',
+      section: 'hero',
+      component: 'cta_button',
+      action: 'click_services',
+      elementId: 'cta-services-button',
+      elementState: 'active',
+      elementPosition: 'bottom',
+      url: '/#services',
+      analyticsGroupId: 'conversion',
     },
   });
 
@@ -56,7 +56,9 @@ export function Hero() {
       <div className="container mx-auto px-4 relative z-10 pt-16">
         <div className="max-w-4xl mx-auto">
           <div className="text-center">
-            <div className={`inline-block mb-3 px-4 py-1 rounded-full ${bgColor.accentLight} ${textColor.accent} text-sm font-medium`}>
+            <div
+              className={`inline-block mb-3 px-4 py-1 rounded-full ${bgColor.accentLight} ${textColor.accent} text-sm font-medium`}
+            >
               {t('hero.badge')}
             </div>
             <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-blue-400 dark:from-blue-400 dark:to-blue-200 py-2">
@@ -93,5 +95,5 @@ export function Hero() {
         </div>
       </div>
     </section>
-  )
-} 
+  );
+}

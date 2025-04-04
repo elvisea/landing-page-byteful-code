@@ -1,8 +1,8 @@
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
-import { firebaseService } from "@/lib/firebase-config";
+import { firebaseService } from '@/lib/firebase-config';
 
-export type SocialNetwork = "github" | "linkedin" | "whatsapp" | "email";
+export type SocialNetwork = 'github' | 'linkedin' | 'whatsapp' | 'email';
 
 export type SocialTrackingProps = {
   network: SocialNetwork;
@@ -17,7 +17,7 @@ export function useSocialTracking({ network, url }: SocialTrackingProps) {
     const timeOnPage = Math.floor(performance.now() / 1000); // Tempo em segundos
 
     // Registra o evento de clique em rede social
-    firebaseService.logEvent("social_click", {
+    firebaseService.logEvent('social_click', {
       // Informações do ambiente
       environment: process.env.NODE_ENV,
 
@@ -31,9 +31,7 @@ export function useSocialTracking({ network, url }: SocialTrackingProps) {
       time_on_page: timeOnPage,
 
       // Informações do dispositivo
-      device_type: /Mobile|Android|iPhone/i.test(window.navigator.userAgent)
-        ? "mobile"
-        : "desktop",
+      device_type: /Mobile|Android|iPhone/i.test(window.navigator.userAgent) ? 'mobile' : 'desktop',
       screen_size: `${window.innerWidth}x${window.innerHeight}`,
 
       // Contexto do usuário
@@ -41,8 +39,7 @@ export function useSocialTracking({ network, url }: SocialTrackingProps) {
       is_online: navigator.onLine,
 
       // Sessão
-      session_id:
-        sessionStorage.getItem("session_started") || Date.now().toString(),
+      session_id: sessionStorage.getItem('session_started') || Date.now().toString(),
     });
 
     // Registra também como evento específico da rede social

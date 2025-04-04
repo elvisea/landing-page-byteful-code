@@ -1,13 +1,13 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from "react"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
-import { Menu } from "lucide-react"
-import { useTranslation } from "react-i18next"
+import { Menu } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
-import { Button } from "@/components/ui/button"
+import { Button } from '@/components/ui/button';
 
 import {
   Sheet,
@@ -16,58 +16,59 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/components/ui/sheet"
+} from '@/components/ui/sheet';
 
-import { ModeToggle } from "./ModeToggle"
-import { LanguageSwitcher } from "@/components/LanguageSwitcher"
+import { ModeToggle } from './ModeToggle';
+import { LanguageSwitcher } from '@/components/LanguageSwitcher';
 
-import { content } from "../content/page-content"
-import { buttonStyles, textColor } from "../styles/theme"
-import { useClickTracking } from "../hooks/useClickTracking"
+import { content } from '../content/page-content';
+import { buttonStyles, textColor } from '../styles/theme';
+import { useClickTracking } from '../hooks/useClickTracking';
 
 export function Header() {
-  const { t } = useTranslation()
-  const pathname = usePathname()
-  const [isScrolled, setIsScrolled] = useState(false)
-  const [isSheetOpen, setIsSheetOpen] = useState(false)
+  const { t } = useTranslation();
+  const pathname = usePathname();
+  const [isScrolled, setIsScrolled] = useState(false);
+  const [isSheetOpen, setIsSheetOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10)
-    }
+      setIsScrolled(window.scrollY > 10);
+    };
 
-    window.addEventListener("scroll", handleScroll)
-    return () => window.removeEventListener("scroll", handleScroll)
-  }, [])
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleClickContact = useClickTracking({
-    type: "button",
+    type: 'button',
     data: {
-      label: t("header.menu.contact"),
-      category: "cta",
-      section: "main",
-      component: "header",
-      action: "click_contact",          
-      elementPosition: "bottom",
-      url: "/contact",
-      analyticsGroupId: "conversion",
+      label: t('header.menu.contact'),
+      category: 'cta',
+      section: 'main',
+      component: 'header',
+      action: 'click_contact',
+      elementPosition: 'bottom',
+      url: '/contact',
+      analyticsGroupId: 'conversion',
     },
   });
 
   const handleLinkClick = () => {
-    setIsSheetOpen(false)
-    handleClickContact()
-  }
+    setIsSheetOpen(false);
+    handleClickContact();
+  };
 
   // Não mostrar o header na página de contato
-  if (pathname === "/contact") return null;
+  if (pathname === '/contact') return null;
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
-        ? "bg-white/80 dark:bg-gray-900/80 backdrop-blur-md py-4 shadow-md"
-        : "bg-transparent py-6"
-        }`}
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled
+          ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-md py-4 shadow-md'
+          : 'bg-transparent py-6'
+      }`}
     >
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between">
@@ -81,37 +82,37 @@ export function Header() {
               href="/#services"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {t("header.menu.services")}
+              {t('header.menu.services')}
             </Link>
             <Link
               href="/#process"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {t("header.menu.process")}
+              {t('header.menu.process')}
             </Link>
             <Link
               href="/#testimonials"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {t("header.menu.testimonials")}
+              {t('header.menu.testimonials')}
             </Link>
             <Link
               href="/#faq"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {t("header.menu.faq")}
+              {t('header.menu.faq')}
             </Link>
             <Link
               href="/#contact"
               className={`${textColor.secondary} hover:${textColor.accent} transition-colors`}
             >
-              {t("header.menu.contact")}
+              {t('header.menu.contact')}
             </Link>
             <LanguageSwitcher />
             <ModeToggle />
             <Link href="/contact" passHref>
               <Button size="lg" className={buttonStyles.primary} onClick={handleClickContact}>
-                {t("header.menu.contact")}
+                {t('header.menu.contact')}
               </Button>
             </Link>
           </nav>
@@ -129,11 +130,9 @@ export function Header() {
                 <div className="flex flex-col h-full">
                   <div className="p-6 border-b border-gray-200 dark:border-gray-700">
                     <SheetHeader>
-                      <SheetTitle className="text-left text-xl">
-                        {content.header.logo}
-                      </SheetTitle>
+                      <SheetTitle className="text-left text-xl">{content.header.logo}</SheetTitle>
                       <SheetDescription className="text-left">
-                        {t("header.menu.description")}
+                        {t('header.menu.description')}
                       </SheetDescription>
                     </SheetHeader>
                   </div>
@@ -143,35 +142,35 @@ export function Header() {
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {t("header.menu.services")}
+                      {t('header.menu.services')}
                     </Link>
                     <Link
                       href="/#process"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {t("header.menu.process")}
+                      {t('header.menu.process')}
                     </Link>
                     <Link
                       href="/#testimonials"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {t("header.menu.testimonials")}
+                      {t('header.menu.testimonials')}
                     </Link>
                     <Link
                       href="/#faq"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {t("header.menu.faq")}
+                      {t('header.menu.faq')}
                     </Link>
                     <Link
                       href="/#contact"
                       className={`${textColor.secondary} hover:${textColor.accent} transition-colors text-lg`}
                       onClick={handleLinkClick}
                     >
-                      {t("header.menu.contact")}
+                      {t('header.menu.contact')}
                     </Link>
                     <div className="pt-4 border-t border-gray-200 dark:border-gray-700">
                       <LanguageSwitcher variant="mobile" />
@@ -179,8 +178,11 @@ export function Header() {
                   </nav>
                   <div className="p-6 border-t border-gray-200 dark:border-gray-700">
                     <Link href="/contact" passHref>
-                      <Button className={`w-full ${buttonStyles.primary}`} onClick={handleLinkClick}>
-                        {t("header.menu.contact")}
+                      <Button
+                        className={`w-full ${buttonStyles.primary}`}
+                        onClick={handleLinkClick}
+                      >
+                        {t('header.menu.contact')}
                       </Button>
                     </Link>
                   </div>
@@ -191,5 +193,5 @@ export function Header() {
         </div>
       </div>
     </header>
-  )
-} 
+  );
+}

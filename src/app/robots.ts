@@ -1,4 +1,4 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -8,6 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       disallow: '/api/',
     },
     sitemap: 'https://bytefulcode.tech/sitemap.xml',
-    host: 'https://bytefulcode.tech'
-  }
+    host: 'https://bytefulcode.tech',
+  };
 }

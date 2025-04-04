@@ -11,6 +11,6 @@ const colors = {
     white: '#ffffff',
   },
   border: '#e5e7eb', // gray-200
-}
+};
 
-export { colors }
+export { colors };

@@ -1,13 +1,13 @@
-import { MetadataRoute } from 'next'
+import { MetadataRoute } from 'next';
 
 // URLs base do site
-const BASE_URL = 'https://bytefulcode.tech'
+const BASE_URL = 'https://bytefulcode.tech';
 
 // Data de última modificação para cada seção
 const LAST_MODIFIED = {
   home: new Date(), // Página principal - atualizada frequentemente
   contact: new Date('2024-03-20'), // Contato - atualizar quando mudar informações
-}
+};
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -51,6 +51,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: LAST_MODIFIED.home,
       changeFrequency: 'monthly',
       priority: 0.6,
-    }
-  ]
-} 
+    },
+  ];
+}

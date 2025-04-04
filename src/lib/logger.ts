@@ -1,51 +1,44 @@
-const isDevelopment = process.env.NODE_ENV === "development";
-
-type LogLevel = "info" | "warn" | "error";
+type LogLevel = 'info' | 'warn' | 'error';
 
 interface LogOptions {
-  sensitive?: boolean;
   prefix?: string;
-  data?: Record<string, unknown>;
-  error?: unknown;
+  data?: any;
+  error?: Error;
 }
 
 class Logger {
-  private static log(
-    level: LogLevel,
-    message: string,
-    options: LogOptions = {},
-  ) {
-    if (!isDevelopment) return;
-
-    const prefix = options.prefix ? `[${options.prefix}] ` : "";
+  private static logMessage(level: LogLevel, message: string, options: LogOptions = {}) {
+    const prefix = options.prefix ? `[${options.prefix}] ` : '';
     const fullMessage = `${prefix}${message}`;
 
-    const hasData = options.data || options.error;
-    const logData = hasData ? [fullMessage, options] : [fullMessage];
+    // Em produção, não exibimos logs de nível info
+    if (process.env.NODE_ENV === 'production' && level === 'info') {
+      return;
+    }
 
     switch (level) {
-      case "info":
-        console.log(...logData);
+      case 'info':
+        console.info(fullMessage);
         break;
-      case "warn":
-        console.warn(...logData);
+      case 'warn':
+        console.warn(fullMessage);
         break;
-      case "error":
-        console.error(...logData);
+      case 'error':
+        console.error(fullMessage);
         break;
     }
   }
 
   static info(message: string, options: LogOptions = {}) {
-    this.log("info", message, options);
+    this.logMessage('info', message, options);
   }
 
   static warn(message: string, options: LogOptions = {}) {
-    this.log("warn", message, options);
+    this.logMessage('warn', message, options);
   }
 
   static error(message: string, options: LogOptions = {}) {
-    this.log("error", message, options);
+    this.logMessage('error', message, options);
   }
 }
 

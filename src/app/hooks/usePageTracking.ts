@@ -1,6 +1,6 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 
-import { firebaseService } from "@/lib/firebase-config";
+import { firebaseService } from '@/lib/firebase-config';
 
 interface PageTrackingProps {
   pageTitle: string;
@@ -18,15 +18,12 @@ export function usePageTracking({ pageTitle, pagePath }: PageTrackingProps) {
     // Informações básicas do dispositivo e navegador
     const screenResolution = `${window.screen.width}x${window.screen.height}`;
     const viewportSize = `${window.innerWidth}x${window.innerHeight}`;
-    const isDarkMode = window.matchMedia(
-      "(prefers-color-scheme: dark)",
-    ).matches;
+    const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
     const connection =
-      (navigator as NavigatorWithConnection).connection?.effectiveType ||
-      "unknown";
+      (navigator as NavigatorWithConnection).connection?.effectiveType || 'unknown';
 
     // Registra o evento de visualização da página
-    firebaseService.logEvent("page_view", {
+    firebaseService.logEvent('page_view', {
       // Ambiente
       environment: process.env.NODE_ENV,
 
@@ -46,16 +43,16 @@ export function usePageTracking({ pageTitle, pagePath }: PageTrackingProps) {
       prefers_dark_mode: isDarkMode,
 
       // Referência
-      referrer: document.referrer || "direct",
+      referrer: document.referrer || 'direct',
     });
 
     // Registra métricas de performance usando a API moderna
     const observer = new PerformanceObserver((list) => {
       const entries = list.getEntries();
       entries.forEach((entry) => {
-        if (entry.entryType === "navigation") {
+        if (entry.entryType === 'navigation') {
           const navEntry = entry as PerformanceNavigationTiming;
-          firebaseService.logEvent("performance_metrics", {
+          firebaseService.logEvent('performance_metrics', {
             environment: process.env.NODE_ENV,
             page_load_time: navEntry.loadEventEnd - navEntry.startTime,
             dom_interactive_time: navEntry.domInteractive - navEntry.startTime,
@@ -66,7 +63,7 @@ export function usePageTracking({ pageTitle, pagePath }: PageTrackingProps) {
     });
 
     // Observa métricas de navegação
-    observer.observe({ entryTypes: ["navigation"] });
+    observer.observe({ entryTypes: ['navigation'] });
 
     // Cleanup
     return () => {
