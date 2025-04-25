@@ -21,13 +21,13 @@ class FirebaseService {
 
   private constructor() {
     const config = {
-      apiKey: "AIzaSyDHU-1O1Cr5uRuHpq1NpxD233wAQQNiKqo",
-      authDomain: "bytefulcode.firebaseapp.com",
-      projectId: "bytefulcode",
-      storageBucket: "bytefulcode.firebasestorage.app",
-      messagingSenderId: "1062241774168",
-      appId: "1:1062241774168:web:b69c79cc0227d11110382d",
-      measurementId: "G-GF4P90JVBF",
+      apiKey: 'AIzaSyDHU-1O1Cr5uRuHpq1NpxD233wAQQNiKqo',
+      authDomain: 'bytefulcode.firebaseapp.com',
+      projectId: 'bytefulcode',
+      storageBucket: 'bytefulcode.firebasestorage.app',
+      messagingSenderId: '1062241774168',
+      appId: '1:1062241774168:web:b69c79cc0227d11110382d',
+      measurementId: 'G-GF4P90JVBF',
     };
 
     this.app = initializeApp(config);
