@@ -1,3 +1,9 @@
+/**
+ * @fileoverview Layout principal da aplicação BytefulCode
+ * @author BytefulCode
+ * @version 1.0.0
+ */
+
 import './globals.css';
 
 import type { Metadata, Viewport } from 'next';
@@ -10,14 +16,41 @@ import { organizationSchema, websiteSchema } from '@/lib/schema';
 import { Header } from './components/Header';
 import { FirebaseProvider } from './providers/firebase-provider';
 
+/**
+ * @constant {import('next/font/google').Font}
+ * @description Fonte Inter do Google Fonts com subset latino
+ */
 const inter = Inter({ subsets: ['latin'] });
 
+/**
+ * @type {Viewport}
+ * @description Configurações de viewport para responsividade
+ */
 export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
 };
 
+/**
+ * @type {Metadata}
+ * @description Metadados da aplicação para SEO e Open Graph
+ * @property {URL} metadataBase - URL base para metadados
+ * @property {Object} title - Configurações de título da página
+ * @property {string} description - Descrição da empresa para SEO
+ * @property {string[]} keywords - Palavras-chave para SEO
+ * @property {Object} openGraph - Configurações para compartilhamento em redes sociais
+ * @property {Object} robots - Configurações para crawlers
+ * @property {Object} alternates - URLs alternativas
+ * @property {Object[]} authors - Informações sobre autoria
+ * @property {string} generator - Framework utilizado
+ * @property {string} applicationName - Nome da aplicação
+ * @property {string} referrer - Política de referrer
+ * @property {string} creator - Criador da aplicação
+ * @property {string} publisher - Publicador da aplicação
+ * @property {Object} formatDetection - Configurações de detecção de formato
+ * @property {Object} verification - Códigos de verificação de propriedade
+ */
 export const metadata: Metadata = {
   metadataBase: new URL('https://bytefulcode.tech'),
   title: {
@@ -143,10 +176,36 @@ export const metadata: Metadata = {
   },
 };
 
+/**
+ * Layout raiz da aplicação
+ * @component
+ * @description Componente de layout principal que envolve toda a aplicação
+ * 
+ * @param {Object} props - Propriedades do componente
+ * @param {React.ReactNode} props.children - Componentes filhos a serem renderizados
+ * 
+ * @returns {JSX.Element} Estrutura HTML base da aplicação com:
+ * - Configuração de idioma
+ * - Schema.org markup
+ * - Providers (Firebase, i18n, Theme)
+ * - Header global
+ * - Área de conteúdo dinâmico
+ * 
+ * @example
+ * ```tsx
+ * <RootLayout>
+ *   <HomePage />
+ * </RootLayout>
+ * ```
+ */
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR" suppressHydrationWarning>
       <head>
+        {/* 
+         * @description Markup Schema.org para SEO
+         * Inclui informações estruturadas sobre o website e a organização
+         */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
