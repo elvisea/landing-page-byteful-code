@@ -155,6 +155,18 @@ jobs:
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -H ${{ secrets.REMOTE_HOST }} >> ~/.ssh/known_hosts
 
+      # Verificar e criar diretório alvo se não existir
+      - name: Check and Create Target Directory
+        run: |
+          ssh -i ~/.ssh/deploy_key -p ${{ secrets.REMOTE_PORT }} ${{ secrets.REMOTE_USER }}@${{ secrets.REMOTE_HOST }} "\
+            if [ ! -d \"${{ secrets.REMOTE_TARGET }}\" ]; then \
+              echo 'Target directory does not exist. Creating...' && \
+              mkdir -p ${{ secrets.REMOTE_TARGET }} && \
+              echo 'Directory created successfully.'; \
+            else \
+              echo 'Target directory already exists.'; \
+            fi"
+
       # Primeiro transferimos os arquivos
       - name: Transfer Docker Compose and .env
         run: |
