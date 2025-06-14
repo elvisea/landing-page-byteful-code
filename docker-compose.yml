@@ -3,8 +3,7 @@ services:
     image: ${REGISTRY}/${IMAGE_NAME}:latest
     container_name: ${CONTAINER_NAME_APP}
     restart: unless-stopped
-    ports:
-      - "3002:3002"
+
     environment:
       NODE_ENV: production
 
@@ -25,12 +24,27 @@ services:
       NEXT_PUBLIC_FIREBASE_APP_ID: ${NEXT_PUBLIC_FIREBASE_APP_ID}
       NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: ${NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}
 
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bytefulcode.rule=Host(`bytefulcode.tech`)"
+      - "traefik.http.routers.bytefulcode.entrypoints=websecure"
+      - "traefik.http.routers.bytefulcode.tls.certresolver=letsEncrypt"
+      - "traefik.http.services.bytefulcode.loadbalancer.server.port=3002"
+
+    networks:
+      - web
+
     healthcheck:
       test: ["CMD", "wget", "--spider", "-q", "http://localhost:3002/api/health"]
       interval: 30s
       timeout: 10s
       retries: 3
+
     deploy:
       update_config:
         order: start-first
         failure_action: rollback
+
+networks:
+  web:
+    external: true
