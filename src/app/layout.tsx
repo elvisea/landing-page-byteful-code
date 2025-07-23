@@ -13,6 +13,7 @@ import { Inter } from 'next/font/google';
 import I18nProvider from '@/i18n/I18nProvider';
 import { organizationSchema, websiteSchema } from '@/lib/schema';
 
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { Header } from './components/Header';
 import { FirebaseProvider } from './providers/firebase-provider';
 
@@ -227,6 +228,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ThemeProvider>
           </I18nProvider>
         </FirebaseProvider>
+        <GoogleAnalytics gaId="G-BZJ2563RVC" />
       </body>
     </html>
   );
