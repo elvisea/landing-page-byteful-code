@@ -13,7 +13,7 @@ import { Inter } from 'next/font/google';
 import I18nProvider from '@/i18n/I18nProvider';
 import { organizationSchema, websiteSchema } from '@/lib/schema';
 
-import { GoogleAnalytics } from '@next/third-parties/google';
+import Script from 'next/script';
 import { Header } from './components/Header';
 import { FirebaseProvider } from './providers/firebase-provider';
 
@@ -228,7 +228,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </ThemeProvider>
           </I18nProvider>
         </FirebaseProvider>
-        <GoogleAnalytics gaId="G-BZJ2563RVC" />
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-BZJ2563RVC"
+          strategy="afterInteractive"
+        />
+        <Script id="gtag-init" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-BZJ2563RVC');
+          `}
+        </Script>
       </body>
     </html>
   );
