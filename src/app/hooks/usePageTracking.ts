@@ -15,6 +15,7 @@ interface NavigatorWithConnection extends Navigator {
 
 export function usePageTracking({ pageTitle, pagePath }: PageTrackingProps) {
   useEffect(() => {
+    console.log('Page tracking initialized for:', pageTitle);
     // Informações básicas do dispositivo e navegador
     const screenResolution = `${window.screen.width}x${window.screen.height}`;
     const viewportSize = `${window.innerWidth}x${window.innerHeight}`;
