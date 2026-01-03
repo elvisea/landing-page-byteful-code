@@ -49,6 +49,9 @@ jobs:
         with:
           node-version: "22"
 
+      - name: Enable Corepack
+        run: corepack enable
+
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
@@ -71,10 +74,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
 
-      - name: Install Dependencies
-        run: pnpm install
-
-      # Cache do pnpm node_modules
+      # Cache do pnpm node_modules (RESTAURAR antes da instalação)
       - name: Cache node modules
         uses: actions/cache@v3
         with:
@@ -83,7 +83,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      # Cache do Next.js
+      - name: Install Dependencies
+        run: pnpm install
+
+      # Cache do Next.js (RESTAURAR antes do build)
       - name: Cache Next.js Build
         uses: actions/cache@v3
         with:
