@@ -49,14 +49,14 @@ jobs:
         with:
           node-version: "22"
 
-      - name: Enable Corepack
-        run: corepack enable
-
       - name: Install pnpm
         uses: pnpm/action-setup@v2
         with:
           version: 10.5.0
           run_install: false
+
+      - name: Verify pnpm installation
+        run: pnpm --version
 
       - name: Get pnpm store directory
         shell: bash
@@ -72,7 +72,7 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+        run: pnpm install
 
       # Cache do pnpm node_modules
       - name: Cache node modules
